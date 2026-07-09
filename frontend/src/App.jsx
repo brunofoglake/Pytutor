@@ -3,7 +3,7 @@ import axios from "axios";
 import "./App.css";
 
 // Troque pela sua URL fixa do ngrok (ex: https://seu-dominio.ngrok-free.app)
-const WEBHOOK_URL = "starved-deduct-maverick.ngrok-free.dev";
+const WEBHOOK_URL = "https://starved-deduct-maverick.ngrok-free.app/webhook/chat-python";
 
 // Gera um ID de sessão único por aba/navegador, mantido enquanto a página não recarrega
 const sessionId = crypto.randomUUID();
@@ -33,10 +33,18 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await axios.post(WEBHOOK_URL, {
-        message: trimmed,
-        sessionId,
-      });
+      const response = await axios.post(
+        WEBHOOK_URL,
+        {
+          message: trimmed,
+          sessionId,
+        },
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
 
       const botReply = response.data.reply || "Desculpe, não consegui gerar uma resposta.";
       setMessages((prev) => [...prev, { role: "bot", text: botReply }]);
