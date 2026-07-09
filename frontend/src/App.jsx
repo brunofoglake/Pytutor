@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import "./App.css";
 
 // Troque pela sua URL fixa do ngrok (ex: https://seu-dominio.ngrok-free.app)
@@ -79,7 +81,13 @@ function App() {
       <div className="chat-messages">
         {messages.map((msg, idx) => (
           <div key={idx} className={`message ${msg.role}`}>
-            <div className="message-bubble">{msg.text}</div>
+            <div className="message-bubble">
+              {msg.role === "bot" ? (
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
+              ) : (
+                msg.text
+              )}
+            </div>
           </div>
         ))}
         {loading && (

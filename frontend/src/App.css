@@ -61,9 +61,62 @@ body {
   max-width: 75%;
   padding: 10px 14px;
   border-radius: 14px;
-  white-space: pre-wrap;
-  line-height: 1.4;
+  line-height: 1.5;
   font-size: 0.95rem;
+  text-align: left;
+}
+
+.message-bubble p {
+  margin: 0 0 8px;
+}
+
+.message-bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.message-bubble ul,
+.message-bubble ol {
+  margin: 0 0 8px;
+  padding-left: 20px;
+}
+
+.message-bubble h1,
+.message-bubble h2,
+.message-bubble h3 {
+  margin: 12px 0 8px;
+  font-size: 1rem;
+}
+
+.message-bubble h1:first-child,
+.message-bubble h2:first-child,
+.message-bubble h3:first-child {
+  margin-top: 0;
+}
+
+.message-bubble code {
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: "Fira Code", "Consolas", monospace;
+  font-size: 0.85em;
+}
+
+.message-bubble pre {
+  background: #0d0d15;
+  padding: 10px 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.message-bubble pre code {
+  background: none;
+  padding: 0;
+}
+
+.message.user .message-bubble pre,
+.message.user .message-bubble code {
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .message.user .message-bubble {
