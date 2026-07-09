@@ -3,7 +3,7 @@ import axios from "axios";
 import "./App.css";
 
 // Troque pela sua URL fixa do ngrok (ex: https://seu-dominio.ngrok-free.app)
-const WEBHOOK_URL = "https://SEU-DOMINIO.ngrok-free.app/webhook/chat-python";
+const WEBHOOK_URL = "starved-deduct-maverick.ngrok-free.dev";
 
 // Gera um ID de sessão único por aba/navegador, mantido enquanto a página não recarrega
 const sessionId = crypto.randomUUID();
