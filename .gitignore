@@ -1,0 +1,20 @@
+# Variáveis de ambiente (contém configuração local, não deve ser versionado)
+.env
+
+# Node / React (frontend)
+node_modules/
+dist/
+build/
+.vite/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
