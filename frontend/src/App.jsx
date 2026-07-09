@@ -2,9 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 
-// Caminho fixo do webhook dentro do n8n (isso não muda)
-const WEBHOOK_PATH = "/webhook/chat-python";
-const STORAGE_KEY = "python_tutor_backend_url";
+// Troque pela sua URL fixa do ngrok (ex: https://seu-dominio.ngrok-free.app)
+const WEBHOOK_URL = "https://SEU-DOMINIO.ngrok-free.app/webhook/chat-python";
 
 // Gera um ID de sessão único por aba/navegador, mantido enquanto a página não recarrega
 const sessionId = crypto.randomUUID();
@@ -18,11 +17,6 @@ function App() {
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const [backendUrl, setBackendUrl] = useState(
-    () => localStorage.getItem(STORAGE_KEY) || "http://localhost:5678"
-  );
-  const [backendUrlDraft, setBackendUrlDraft] = useState(backendUrl);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -39,8 +33,7 @@ function App() {
     setLoading(true);
 
     try {
-      const cleanUrl = backendUrl.trim().replace(/\/+$/, "");
-      const response = await axios.post(`${cleanUrl}${WEBHOOK_PATH}`, {
+      const response = await axios.post(WEBHOOK_URL, {
         message: trimmed,
         sessionId,
       });
@@ -53,7 +46,7 @@ function App() {
         ...prev,
         {
           role: "bot",
-          text: "Ops, houve um erro ao me comunicar com o servidor. Verifique se o n8n está rodando.",
+          text: "Ops, houve um erro ao me comunicar com o servidor. Verifique se o backend está rodando.",
         },
       ]);
     } finally {
@@ -71,51 +64,9 @@ function App() {
   return (
     <div className="chat-container">
       <header className="chat-header">
-        <button
-          className="settings-button"
-          onClick={() => {
-            setBackendUrlDraft(backendUrl);
-            setShowSettings((prev) => !prev);
-          }}
-          title="Configurar endereço do backend"
-        >
-          ⚙️
-        </button>
         <h1>🐍 Python Tutor Bot</h1>
         <p>Aprenda Python conversando</p>
       </header>
-
-      {showSettings && (
-        <div className="settings-panel">
-          <label htmlFor="backend-url">Endereço do backend (n8n)</label>
-          <input
-            id="backend-url"
-            type="text"
-            value={backendUrlDraft}
-            onChange={(e) => setBackendUrlDraft(e.target.value)}
-            placeholder="http://localhost:5678 ou https://xxxx.trycloudflare.com"
-          />
-          <div className="settings-panel-actions">
-            <button
-              onClick={() => {
-                const cleaned = backendUrlDraft.trim().replace(/\/+$/, "");
-                setBackendUrl(cleaned);
-                localStorage.setItem(STORAGE_KEY, cleaned);
-                setShowSettings(false);
-              }}
-            >
-              Salvar
-            </button>
-            <button className="secondary" onClick={() => setShowSettings(false)}>
-              Cancelar
-            </button>
-          </div>
-          <p className="settings-hint">
-            Cole aqui a URL do túnel Cloudflare (ex: https://algo.trycloudflare.com) ou
-            deixe como localhost se for testar na mesma máquina do backend.
-          </p>
-        </div>
-      )}
 
       <div className="chat-messages">
         {messages.map((msg, idx) => (
