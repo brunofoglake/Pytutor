@@ -34,16 +34,16 @@ O bot foi desenhado para três tipos de interação:
 ## Arquitetura
 
 ```
-┌─────────────────────┐        HTTPS (ngrok)        ┌──────────────────────────┐
-│   Frontend (React)   │ ───────────────────────────▶ │   n8n (Docker, local)     │
-│   Hospedado no        │                             │   Webhook → AI Agent      │
-│   GitHub Pages        │ ◀─────────────────────────── │   → Respond to Webhook   │
-└─────────────────────┘        JSON de resposta        └───────────┬──────────────┘
+┌─────────────────────┐        HTTPS (ngrok)            ┌──────────────────────────┐
+│   Frontend (React)  │ ─────────────────────────────▶ │   n8n (Docker, local)    │
+│   Hospedado no      │                                │   Webhook → AI Agent     │
+│   GitHub Pages      │ ◀────────────────────────────  │   → Respond to Webhook   │
+└─────────────────────┘        JSON de resposta         └───────────┬──────────────┘
                                                                     │
                                                                     ▼
                                                         ┌──────────────────────┐
-                                                        │  Ollama (Docker,      │
-                                                        │  local) — Qwen2.5     │
+                                                        │  Ollama (Docker,     │
+                                                        │  local) — Qwen2.5    │
                                                         └──────────────────────┘
 ```
 
