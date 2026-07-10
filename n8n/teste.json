@@ -1,4 +1,0 @@
-{
-  "message": "O que esse trecho de código faz?\n\nnome = input(\"Digite seu nome: \")\nprint(\"Bem-vindo,\", nome + \"!\")",
-  "sessionId": "teste-1"
-}
